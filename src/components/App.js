@@ -1,13 +1,23 @@
 import React, { Component } from 'react'
+import { handleInitialData } from '../actions/shared'
+import { connect } from 'react-redux'
+import Dashboard from './Dashboard';
 
 class App extends Component {
+  componentDidMount () {
+    this.props.dispatch(handleInitialData())
+  }
+
   render() {
     return (
       <div>
-        Start Code
+        <Dashboard />
       </div>
     )
   }
 }
+function mapStateToProps () {
+ 
+}
 
-export default App
+export default connect(mapStateToProps)(App)

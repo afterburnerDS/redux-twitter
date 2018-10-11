@@ -3,14 +3,14 @@ import { receiveUsers } from '../actions/users'
 import { receiveTweets } from '../actions/tweets'
 import { setAuthedUser } from '../actions/authedUser'
 
-
+const AUTHED_ID = 'tylermcginnis'
 
 export function handleInitialData () {
     return (dispatch) => {
       return getInitialData()
-        .then(({ users, polls }) => {
+        .then(({ users, tweets }) => {
           dispatch(receiveUsers(users))
-          dispatch(receivePolls(polls))
+          dispatch(receiveTweets(tweets))
           dispatch(setAuthedUser(AUTHED_ID))
         })
     }
