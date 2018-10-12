@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Tweet from './Tweet'
 
 class Dashboard extends Component {
    
@@ -16,12 +17,8 @@ class Dashboard extends Component {
           {tweetIDs.map((id) => (
               
             
-            <li key={id}>
-             
-                {
-                `${tweets[id].id}, ${tweets[id].author}, ${tweets[id].author} `
-                }
-              
+            <li className='tweetContainer' key={id}>
+                <Tweet tweetId={id} />
             </li>
           ))}
         </ul>
@@ -35,8 +32,6 @@ function mapStateToProps ({tweets, users}) {
 
     return {
         tweetIDs,
-        tweets,
-        users
     }
   }
   
