@@ -3,23 +3,32 @@ import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faReply } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons'
+import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons'
+import { toggleLike } from '../actions/likes'
 
 
 class Tweet extends Component {
 
-    handleReply = (e) => {
+    handleReply = () => {
     
         console.log('replied')
       }
 
-      handleLike = (e) => {
-    
-        console.log('liked')
+      handleToggleLike = () => {
+        
+            this.liked = !this.liked;
+            const { tweetId, authedUser, tweets } = this.props
+            this.props.dispatch(toggleLike({
+              authedUser,
+              id: tweets[tweetId].id,
+            hasLiked: this.liked
+            }))
+         
       }
    
     render() {
 
-        const { tweetId, tweets, users } = this.props
+        const { tweetId, tweets } = this.props
         console.log(tweets[tweetId])
         
       return (
@@ -30,13 +39,19 @@ class Tweet extends Component {
             <div>
                 {tweets[tweetId].text}
             </div>
-            <div onClick={this.handleReply}>
+            <div onClick={() => {this.handleReply } }>
                 <span>{tweets[tweetId].replies.length}</span>
                 <FontAwesomeIcon className=''icon={faReply} />
             </div>
-            <div onClick={this.handleLike}>
+            <div onClick={() => {
+                
+                    this.handleToggleLike()
+                }
+                }>
                 <span>{tweets[tweetId].likes.length}</span>
-                <FontAwesomeIcon icon={faHeartRegular} />
+                {
+                    this.liked ? <FontAwesomeIcon  icon={faHeartSolid} /> : <FontAwesomeIcon  icon={faHeartRegular} />
+                } 
             </div>
            
             
@@ -46,10 +61,11 @@ class Tweet extends Component {
     }
   }
 
-function mapStateToProps ({tweets, users}) {
+function mapStateToProps ({tweets, users, authedUser}) {
     return {
         tweets,
         users,
+        authedUser
         
     }
   }

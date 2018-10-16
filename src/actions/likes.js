@@ -1,8 +1,23 @@
-export const LIKE_TWEETS = 'LIKE_TWEETS'
+import { saveLikeToggle } from '../utils/api'
+import { showLoading, hideLoading } from 'react-redux-loading'
 
-export function receiveTweets (tweets) {
+export const LIKE_TWEET = 'LIKE_TWEET'
+
+export function toggleLikeTweet ({ authedUser, id, hasLiked }) {
     return {
-      type: LIKE_TWEETS,
-      like,
+      type: LIKE_TWEET,
+      authedUser,
+      id,
+      hasLiked
+    }
+  }
+
+
+  export function toggleLike (likeData) {
+    return (dispatch) => {
+      dispatch(showLoading())
+      return saveLikeToggle(likeData)
+        .then(() => dispatch(toggleLikeTweet(likeData)))
+        .then(() => dispatch(hideLoading()))
     }
   }
