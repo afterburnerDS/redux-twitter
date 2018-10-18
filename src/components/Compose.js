@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { handleAddTweet } from '../actions/tweets'
 import Tweet from './Tweet'
 
 class Compose extends Component {
 
     state = {
-        text : ''
+        text : '',
+        replyingTo: this.props.replyingId ? this.props.replyingId : ''
       }
     handleInputChange = (e) => {
         const { value, name } = e.target
@@ -24,8 +26,10 @@ class Compose extends Component {
 
       handleSubmit = (e) => {
         e.preventDefault()
+
+        console.log("reply",this.state.replyingTo)
        
-        //this.props.dispatch(handleAddPoll(this.state))
+        this.props.dispatch(handleAddTweet(this.state))
       }
    
     render() {
@@ -34,7 +38,6 @@ class Compose extends Component {
     
       return (
         <div>
-        <h2>Your Timeline</h2>    
         <form onSubmit={this.handleSubmit}>
             <h3 style={{marginBottom: 5}}>Compose new Tweet</h3>
                 <input
@@ -57,9 +60,10 @@ class Compose extends Component {
 
 function mapStateToProps ({tweets, users}) {
     const tweetIDs = Object.keys(tweets);
+    
 
     return {
-        tweetIDs,
+        tweetIDs
     }
   }
   

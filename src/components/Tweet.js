@@ -40,7 +40,7 @@ class Tweet extends Component {
                 {tweets[tweetId].text}
             </div>
             <div onClick={() => {this.handleReply } }>
-                <span>{tweets[tweetId].replies.length}</span>
+                <span>{tweets[tweetId].replies ? tweets[tweetId].replies.length: ''}</span>
                 <FontAwesomeIcon className=''icon={faReply} />
             </div>
             <div onClick={() => {
@@ -48,7 +48,7 @@ class Tweet extends Component {
                     this.handleToggleLike()
                 }
                 }>
-                <span>{tweets[tweetId].likes.length}</span>
+                <span>{tweets[tweetId].likes ? tweets[tweetId].likes.length : ''}</span>
                 {
                     this.liked ? <FontAwesomeIcon  icon={faHeartSolid} /> : <FontAwesomeIcon  icon={faHeartRegular} />
                 } 

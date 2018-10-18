@@ -23,10 +23,26 @@ export default function tweets (state = {}, action) {
         }
 
     case ADD_TWEET :
-        return {
-          ...state,
-          [action.tweet.id] : action.tweet
+    if(action.tweet.replyingTo) {
+      return {
+        ...state,
+        [action.tweet.id] : action.tweet,
+       
+        
+        [action.tweet.replyingTo]: {
+          
+          ...action.tweet.replyingTo,
+          [action.tweet.replyingTo.replies]: action.tweet.replyingTo.replies ?action.tweet.replyingTo.replies.concat([action.tweet.replyingTo]) : [].concat([action.tweet.replyingTo])
         }
+        
+      }
+    } else{
+      return {
+        ...state,
+        [action.tweet.id] : action.tweet,  
+      }
+    }
+        
 
     default :
       return state
