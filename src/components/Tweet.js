@@ -28,11 +28,12 @@ class Tweet extends Component {
    
     render() {
 
-        const { tweetId, tweets } = this.props
+        const { tweetId, tweets, users } = this.props
         console.log(tweets[tweetId])
         
       return (
         <div className='tweet'>
+            <img src={users[tweets[tweetId].author].avatarURL} alt="Author's avatar"></img>
             <h1>{tweets[tweetId].author}</h1>
             <h3>{tweets[tweetId].timestamp}</h3>
             <h4>{tweets[tweets[tweetId].replyingTo] ? 'Replying to: '+ tweets[tweets[tweetId].replyingTo].author : ''}</h4>
